@@ -10,20 +10,12 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
 def print_help():
-    print ('prep_reference.py -i <inputfilename> <optional>\n')
+    print ('karyoploteR_custom_genome.py -i REFERENCE <optional>\n')
     print('Dependencies are: minimap2, bwa, seqkit, bioawk\n')
     print('This script is used to create bedfiles, genome size file, and karyoploteR genome file from reference.\nReference is indexed using minimap2, unless set to false. Can also index with bwa.\n')
     print('Requires gzip, pandas, and re libraries for python\n')
     print('-i      Input reference file in fastX format\n')
-    print('-c      list of chromosomes you wish to extract and use for file creation\n')
-    print('-r      list of replacement names which will rename the chromosomes provided with -c\n')
-    print('-o      Change the output file name for for filtered or replaced reference file. Using -c the output is <inputfilename>.filtered.fastq. Using -c and -r the output is <inputfilename>.replaced.fastq\n')
-    print('-m      Minimap2 ONT indexing of reference sequence. Default true. Use false for no indexing\n')
-    print('-b      bwa index of reference genome. Default false. Use true for indexing\n')
-    print('-a      Create bedfiles. Default is true. Use false to change setting\n')
-    print('-g      Create genome size file. Default is true. Use false to change setting\n')
-    print('-k      Create genome file for karyoploteR. Default is true. Use false to change setting.\n')
-    print('-s      Create file containing size of longest reference chromosome. Default is true. Use false to change setting\n')
+    print('-o      Change the output file name Default is REFERENCE_karyoploteR_genome_file.txt\n')
     print('-d      desitination folder\n')
 
 
