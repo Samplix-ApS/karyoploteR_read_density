@@ -5,6 +5,8 @@
   - [Dependencies](#dependencies)
   - [Installation](#install_)
 - [Executing program](#execute_program)
+  - [Create custom genome](#custom_)
+  - [Create read density plot](#plot_)
 - [Help](#help_)
 - [Authors](#authors_)
 
@@ -16,22 +18,47 @@ Creating read density plots with karyoploteR to give an overview of where reads 
     </p>
   
 ## <a name="get_started"></a> Getting Started
-Custom genome file must be generated using prep reference before creating karyoplots.
+Custom genome file must be generated using prep reference or karyoploteR_custom_genome.py before creating karyoplots.
+  
+
   
 ### <a name="dependencies"></a>Dependencies
+
+#### Custom genome:
+* python3
+
+#### Plot:
 * R 4.0.3 (later versions likely also work)
   
 * R library optparse v 1.6.6
 
 * R library karyoploteR 1.16.0
 
+
 ### <a name="install_"></a> Installation
+#### Custom genome:
+  Download the python script
+  
+#### Plot:
+  Download the R script
 
-Download the R script
-
+  
 ## <a name="execute_program"></a> Executing program
+  
+### <a name="custom_"></a> Create custom genome
+To create a custom genome:
+```
+  python3 karyoploteR_custom_genome.py -i REFERENCE <optional>
+```
+The following parameters can be used:
+```
+-i  input reference file in fastX format
+-o  output file name. Default is REFERENCE_karyoploteR_genome_file.txt
+-d  destination folder.
+```
 
-To creat karyoplots with read densities:
+### <a name="plot_"></a> Create read density plot
+To create karyoplots with read densities:
 ```
 Rscript karyoploteR_read_density.R -i BAM -g GENOMEFILE <optional>
 ```
@@ -48,7 +75,12 @@ The following parameters can be used:
 
 
 ## <a name="help_"></a>Help
+#### Custom genome:
+```
+python3 karyoploteR_custom_genome.py -h 
+```
 
+#### Plot:
 ```
 Rscript karyoploteR_read_density.R -h
 ```
