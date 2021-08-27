@@ -19,20 +19,29 @@ def print_help():
     print('-d      desitination folder\n')
 
 
+BAI_INDEX_SIZE = 536870912
+class Sequence:
+    # def __init__(self):
+    #     self.name = ""
+    #     self.seq = []
+    #
+    def __init__(self,n,l):
+        self.name = n
+        self.len = l
+
+
 def karyomerge(names, startpos, lengths):
     merged_list = [(names[i], startpos[i], lengths[i]) for i in range(0, len(names))]
     return merged_list
 
-def create_karyoploteR(longest_chromo,output_name, seq_list, seq_count):
-    if longest_chromo > 536870912:
-        print('One or more reference chromosomes exceed the length limit of 536,870,912 bp for SAMtools bai index\nbai index is necessary to create karyoploteR plots\nkaryoploteR genome file will not be output.')
+def create_karyoploteR(output_name, seq_list, seq_count):
     print('Creating karyoploteR genome file:')
 
     readnames = []
     readlengths = []
-    for readname, readlength in seq_list:
-        readnames.append(readname)
-        readlengths.append(readlength+1)
+    for seq in seq_list:
+        readnames.append(seq.name)
+        readlengths.append(seq.len+1)
 
     start_position = []
     for z in range (0, seq_count):
@@ -70,13 +79,18 @@ def get_seq_records(input_name):
     print('Loading reference')
     for record in SeqIO.parse(fin, 'fasta'):
         seq_count += 1
-        seq_list.append((record.id, len(record.seq)))
+        seq_list.append(Sequence(record.id, len(record.seq)))
 
-    longest_chromo = max(seq_list, key=lambda item:item[1])[1]
-    print('Longest chromo:', longest_chromo)
+    return seq_count, seq_list
 
-    return seq_count, seq_list, longest_chromo
+def max_len(seq_list):
+    seqlist_len = seq_list.len
+    return seqlist_len
 
+def sort_seq_list(seq_list):
+    seqlist_name = seq_list.name
+    lower_case = seqlist_name.lower()
+    return lower_case
 
 def main(argv):
     input_name = ''
@@ -99,7 +113,9 @@ def main(argv):
             destination_folder = arg
 
     output_name = output_name_arg(output_name,input_name,destination_folder)
-    seq_count, seq_list, longest_chromo = get_seq_records(input_name)
+    seq_count, seq_list = get_seq_records(input_name)
+    print(type(seq_list))
+
 ### checking number of chromosomes present in file or list
 
     print('Number of chromosomes/scaffolds in reference:', seq_count)
@@ -123,7 +139,9 @@ def main(argv):
         else:
             break
 
-    create_karyoploteR(longest_chromo, output_name, seq_list, seq_count)
+    sorted_seq_list = sorted(seq_list, key = sort_seq_list)
+
+    create_karyoploteR(output_name, sorted_seq_list, seq_count)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
