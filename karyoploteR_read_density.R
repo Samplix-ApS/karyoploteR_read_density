@@ -1,8 +1,10 @@
 defaultW <- getOption("warn")
+writeLines(paste('\nLoading libraries This may take a while.\n'))
 options(warn = -1)
-library(optparse)
-library(colorout)
-library(tidyverse)
+suppressPackageStartupMessages(library(optparse))
+suppressPackageStartupMessages(library(colorout))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(karyoploteR))
 options(warn = defaultW)
 
 option_list = list(
@@ -81,11 +83,6 @@ writeLines(paste('Input file: ',density_bam))
 writeLines(paste('Path for genome file', genome_file))
 writeLines(paste('Image resolution:', r))
 
-options(warn = -1)
-writeLines(paste('\nLoading karyoploteR. This may take a while.\n'))
-library(karyoploteR)
-options(warn = defaultW)
-writeLines(paste('\nkaryoploteR loaded.\n'))
 
 ###################### Colors ######################
 samplix_green <- "#96bf21"
